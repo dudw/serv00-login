@@ -104,26 +104,14 @@ async def main():
     print(f'所有{serviceName}账号登录完成！')
 
 async def send_telegram_message(message):
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    url = f"https://notice.godof.uk/send/VFMGIS9VRSVRC46HTW31SV92ITDS7PC9?title="
     payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': message,
-        'reply_markup': {
-            'inline_keyboard': [
-                [
-                    {
-                        'text': '问题反馈❓',
-                        'url': 'https://t.me/yxjsjl'
-                    }
-                ]
-            ]
-        }
     }
     headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text'
     }
     try:
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.post(url+message, json=payload, headers=headers)
         if response.status_code != 200:
             print(f"发送消息到Telegram失败: {response.text}")
     except Exception as e:
